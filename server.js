@@ -6,6 +6,8 @@ import morgan from 'morgan';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 import cloudinary from 'cloudinary';
+import helmet from 'helmet';
+import mongoSanitize from 'express-mongo-sanitize';
 
 import { validateJobInput } from './middleware/validationMiddleware.js';
 
@@ -37,10 +39,12 @@ app.use(express.static(path.resolve(__dirname, './client/dist')));
 
 app.use(cookieParser());
 app.use(express.json());
+app.use(helmet());
+app.use(mongoSanitize());
 
-app.get('/api/v1/test', (req, res, next) => {
-  res.json({ msg: 'test route' });
-});
+// app.get('/api/v1/test', (req, res, next) => {
+//   res.json({ msg: 'test route' });
+// });
 
 // app.post('/api/v1/test', validateJobInput, (req, res) => {
 //   const { name } = req.body;
